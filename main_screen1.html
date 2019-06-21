@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title> 메인화면 입니다</title>
+
+  <style rel="stylesheet">
+
+    html,body,div,span,iframe,h1,h2,h3,h4,h5,h6,p,a,em,img,var,center,ol,ul,li,form,label,header,menu,nav,output,section,time,audio,video{margin:0;padding:0;border:0;font-size:100%;}
+
+  html {
+    box-sizing: border-box;
+
+
+  }
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    font-family:serif;
+    line-height: 5em;
+  <!--  letter-spacing: 0.5em;-->
+    color: #000;    <!-- 글자색 -->
+  background: #00ffff;
+  padding: 0 10px;
+  }
+
+  html,
+  body {
+    padding: 0 10px;  <!-- 옆 여백 정도-->
+    background: #fff;   <!-- 젤 큰 배경 -->
+  }
+
+  h1 {            <!-- 맨 위 제목인듯? 일단 보류-->
+    font-size: 2em;
+    line-height: 1.4em;
+    text-align: center;
+    padding: 2em;
+  }
+  section {
+    zoom: 1;
+    position: relative;
+    height: auto;
+  }
+
+ section:after,
+  section:before {
+    content: "";
+    display: table;
+  }
+
+  section:after {
+    clear: both;
+  }
+  section h4 {
+    background: rgba(0,0,0,0.1);
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-top: none;
+    padding: 20px 70px;
+  }
+
+  section h4:first-child {
+    border-top: 1px solid rgba(0,0,0,0.2);
+  }
+
+  section h4 {
+    position: relative;
+    width: 20%;
+    height: 20%;
+    display: block;
+  }
+
+  section ul {
+    zoom: 1;
+    position: relative;
+    height: auto;
+    min-height: 100%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-left: none;
+    display: none;
+  }
+
+  section ul:after,
+  section ul:before {
+    content: "";
+    display: table;
+  }
+  section ul:after {
+    clear: both;
+  }
+  section ul {
+    position: absolute;
+    width: 80%;
+    right: 0;
+    top: 0;
+    padding: 15px 30px;
+  }
+
+  section .active {
+    cursor: default;
+    border-bottom: 1px solid rgba(1,0,0,0.2);
+    border-right: none;
+  }
+  section .active {
+    background: rgba(1,0,0,0);
+    border-right: 1px solid rgba(1,0,0,0);
+  }
+
+  section .active + ul {
+    display: block;
+  }
+
+  </style>
+  </head>
+
+
+  <body>
+  <!-- 입력 -->
+  <h1>방탈출게임 이미지??</h1>
+  <section>
+    <h4 class="active"> 소개 </h4>
+    <ul>
+        <iframe src="intro.html" width="600" height="300"></iframe>
+    </ul>
+    <h4>문제</h4>
+    <ul>
+      <iframe src="game.html" width="600" height="300"></iframe>
+    </ul>
+    <h4>마이페이지</h4>
+    <ul>
+      <iframe src="mypage.html" width="600" height="300"></iframe>
+    </ul>
+    <h4>로그아웃</h4>
+    <ul>
+      <iframe src="logout.html" width="600" height="300"></iframe>
+    </ul>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    $('section h4').click(function(event) {
+      event.preventDefault();
+      $(this).addClass('active');
+      $(this).siblings().removeClass('active');
+
+      var ph = $(this).parent().height();
+      var ch = $(this).next().height();
+
+      if (ch > ph) {
+        $(this).parent().css({
+          'min-height': ch + 'px'
+        });
+      } else {
+        $(this).parent().css({
+          'height': 'auto'
+        });
+      }
+    });
+
+    function tabParentHeight() {
+      var ph = $('section').height();
+      var ch = $('section ul').height();
+      if (ch > ph) {
+        $('section').css({
+          'height': ch + 'px'
+        });
+      } else {
+        $(this).parent().css({
+          'height': 'auto'
+        });
+      }
+    }
+
+    $(window).resize(function() {
+      tabParentHeight();
+    });
+
+    $(document).resize(function() {
+      tabParentHeight();
+    });
+    tabParentHeight();
+    </script>
+    </body>
+</html>

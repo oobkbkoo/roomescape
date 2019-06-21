@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>이상형 월드컵</title>
+</head>
+<script>
+    //imges(파일명), imgname(해당이름) 바꾸기
+    var images = ["trash", "image1.png", "image2.png", "image3.png", "image4.png",
+        "image5.png", "image6.png", "image7.png", "image8.png", "image9.png", "image10.png", "image11.png", "image12.png",
+        "image13.png", "image14.png", "image15.png", "image16.png"];
+    var imagename = ["trash", "라이온킹3", "빅히어로", "말레피센트", "정글북", "공주와개구리", "도리를찾아서", "인어공주", "덤보", "모아나", "겨울왕국", "인사이드아웃", "주먹왕랄프2", "알라딘", "코코", "라푼젤", "메리다와마법의숲"];
+    var selectedImage = new Array(4);
+
+    var game = 8;
+    var cnt = 0;
+
+    var username = prompt("이름을 입력해 주십시오.", "");
+    var visitcount = GetCookie(username + "count");
+    var expire = new Date(); // 현재 시간
+
+    if (username == null) {
+        alert("이름을 입력하시면 보다 나은 서비스를 제공받을 수 있습니다.");
+        username = "아무개";
+    } else {
+        expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000)); // 1년후 
+        SetCookie("username", username, expire);
+    }
+
+    visitcount++;
+    expire.setTime(expire.getTime() + (365 * 24 * 3600 * 1000)); // 1년후 
+    SetCookie(username + "count", visitcount, expire);
+
+    alert("어서오십시오. " + username + "님의 " + visitcount + "번째 방문을 환영합니다!");
+
+    function GetCookie(name) {
+        var str = name + "=";
+        var pairs = document.cookie.split(";"); // 쿠키문자열을 ;을 경계로 분할
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i].trim(); // 쿠키 앞뒤의 빈칸 제거
+            var unit = pair.split("=");
+            if (unit[0] == name)
+                return unescape(unit[1]);
+        }
+        return null;
+    }
+    function SetCookie(name, value, expireDate) {
+        var cookieStr = name + "=" + escape(value) +
+            ((expireDate == null) ? "" : ("; expires=" + expireDate.toGMTString()));
+        document.cookie = cookieStr;
+    }
+
+    function doSelect() {
+        var RADIO = document.getElementsByName("RADIO");
+        var SPAN = document.getElementsByName("radioSpan");
+        var IMAGE = document.getElementsByName("radioImage");
+
+        if (RADIO[0].checked == true) {
+            selectedImage[cnt++] = RADIO[0].value;
+
+            RADIO[0].checked = false;
+            if (game == 1)
+                alert(username + "님의 " + visitcount + "번째 선택은 " + SPAN[0].innerHTML + "였습니다.");
+        } else if (RADIO[1].checked == true) {
+            selectedImage[cnt++] = RADIO[1].value;
+
+            RADIO[1].checked = false;
+            if (game == 1)
+                alert(username + "님의" + visitcount + "번째 선택은 " + SPAN[1].innerHTML + "였습니다.");
+        } else {
+            alert("선택해주세요");
+            return false;
+        }
+
+        if (cnt == game) {
+            game /= 2;
+            cnt = 0;
+        }
+        if (game == 8)
+            set16(RADIO, SPAN, IMAGE);
+        if (game == 4)
+            set8(RADIO, SPAN, IMAGE);
+        if (game == 2)
+            set4(RADIO, SPAN, IMAGE);
+        if (game == 1)
+            set2(RADIO, SPAN, IMAGE);
+    }
+    function set16(RADIO, SPAN, IMAGE) {
+        var first = parseInt(RADIO[0].value) + 2;
+        var second = parseInt(RADIO[1].value) + 2;
+
+        RADIO[0].value = first;
+        RADIO[1].value = second;
+        SPAN[0].innerHTML = imagename[first];
+        SPAN[1].innerHTML = imagename[second];
+        IMAGE[0].src = images[first];
+        IMAGE[1].src = images[second];
+    }
+    function set8(RADIO, SPAN, IMAGE) {
+        var first, second;
+        if (cnt == 0) {
+            first = selectedImage[0];
+            second = selectedImage[1];
+        } else {
+            first = selectedImage[2 * cnt];
+            second = selectedImage[2 * cnt + 1];
+        }
+
+        RADIO[0].value = first;
+        RADIO[1].value = second;
+        SPAN[0].innerHTML = imagename[first];
+        SPAN[1].innerHTML = imagename[second];
+        IMAGE[0].src = images[first];
+        IMAGE[1].src = images[second];
+    }
+    function set4(RADIO, SPAN, IMAGE) {
+        var first, second;
+        if (cnt == 0) {
+            first = selectedImage[0];
+            second = selectedImage[1];
+        } else {
+            first = selectedImage[2];
+            second = selectedImage[3];
+        }
+
+        RADIO[0].value = first;
+        RADIO[1].value = second;
+        SPAN[0].innerHTML = imagename[first];
+        SPAN[1].innerHTML = imagename[second];
+        IMAGE[0].src = images[first];
+        IMAGE[1].src = images[second];
+    }
+    function set2(RADIO, SPAN, IMAGE) {
+        var first = selectedImage[0];
+        var second = selectedImage[1];
+
+        RADIO[0].value = first;
+        RADIO[1].value = second;
+        SPAN[0].innerHTML = imagename[first];
+        SPAN[1].innerHTML = imagename[second];
+        IMAGE[0].src = images[first];
+        IMAGE[1].src = images[second];
+    }
+</script>
+
+<body>
+    <!--제목 바꾸기 ex) 가장 먹고 싶은 것은?-->
+    <h3>이상형 월드컵</h3>
+    <hr><br><br>
+    <!-- img 크기 조절하기 -->
+    <form>
+        <input type="radio" name="RADIO" value="1"><span name="radioSpan">라이온킹3</span><img src="image1.png"
+            name="radioImage" width="100px" height="100px">
+        <br><br><br>
+        <input type="radio" name="RADIO" value="2"><span name="radioSpan">빅히어로</span><img src="image2.png"
+            name="radioImage" width="100px" height="100px">
+        <br><br><br>&nbsp;&nbsp;&nbsp;
+        <input type="button" value="선택" onclick="doSelect()">
+    </form>
+</body>
+
+</html>

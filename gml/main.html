@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Welcome!</title>
+</head>
+<body>
+당신의 이름을 수신했습니다.<br>
+<script>
+document.write(window.location.href + "<br>");
+var temp = window.location.href;
+
+var str_ary = temp.split("?");			// ? 기준으로 자름
+document.write(str_ary[0] + "<br>");		// ? 이전
+document.write(str_ary[1] + "<br>");		// ? 이후
+
+document.write("<hr><br>");
+var user_input = str_ary[1].split("&");		// ? 이후 부분을 &로 나눔
+for(var i = 0 ; i < user_input.length ; i++)
+document.write(user_input[i] + "<br>");		// 반복문 이용해서 출력
+
+document.write("<hr><br>");
+// document.write(user_input[0].substr(3)); 	// 방식 1: ID= 이게 문자 3개
+var user_name = user_input[0].split("=");
+document.write(user_name[1] + "님의 방문을 환영합니다.<br>");
+
+</script>
+<form>
+</form>
+</body>
+</html>

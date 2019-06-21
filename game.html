@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>게임 페이지</title>
+  </head>
+  <body>
+    <form action="game.php" method="post">
+      <div>
+        <?php
+$connect=mysql_connect(  "localhost",  "root",  "root");
+  mysql_select_db( "dbtest",$connect);
+$query= "select * from gallery where id=$id" ;
+  $result=mysql_query($query,$connect );
+$row=mysql_fetch_array($result);
+
+  Header(  "Content-type:  image/jpeg");
+  echo $row[image];
+mysql_close();
+?> 
+        <button type="button" name="back">뒤로가기</button>
+        <button type="submit" name="save">저장</button>
+      </div>
+      <div>
+        <input type="text" name="answer" value="답입력하셈">
+        <button type="submit" name="enter"> 답입력 </button>
+      </div>
+
+    </form>
+  </body>
+</html>
